@@ -1,17 +1,17 @@
 import { motion } from "framer-motion";
-import { 
-  Music, 
-  Code, 
-  Phone, 
-  Store, 
-  TrendingUp, 
+import {
+  Music,
+  Code,
+  Phone,
+  Store,
+  TrendingUp,
   Calendar,
   MapPin,
   Briefcase,
-  Users,
-  BarChart3
+  BarChart3,
 } from "lucide-react";
 import { useState, useEffect } from "react";
+import ReactECharts from "echarts-for-react";
 
 const experiences = [
   {
@@ -96,6 +96,15 @@ const experiences = [
   },
 ];
 
+// 🔹 Datos de habilidades para el radar chart
+const skills = [
+  { name: "Desarrollo Web", value: 85 },
+  { name: "Marketing Digital", value: 70 },
+  { name: "Ventas & Negociación", value: 75 },
+  { name: "Entretenimiento / DJ", value: 65 },
+  { name: "Gestión de Proyectos", value: 80 },
+];
+
 export default function Experience() {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -140,7 +149,7 @@ export default function Experience() {
         />
       </div>
 
-      {/* Blobs */}
+      {/* Blobs decorativos */}
       <motion.div
         animate={{ y: [-15, 15, -15], scale: [1, 1.1, 1] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
@@ -152,7 +161,7 @@ export default function Experience() {
         className="absolute bottom-10 right-5 w-28 h-28 bg-gradient-to-r from-blue-500/10 to-emerald-500/10 rounded-full blur-xl"
       />
 
-      {/* Content */}
+      {/* Contenido */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6">
         <motion.div
           variants={containerVariants}
@@ -202,11 +211,15 @@ export default function Experience() {
                     transition={{ delay: index * 0.1 }}
                     className="relative flex flex-col lg:flex-row items-center"
                   >
-                    {/* Timeline Icon */}
+                    {/* Icono Timeline */}
                     <motion.div
                       initial={{ scale: 0, rotate: 180 }}
                       whileInView={{ scale: 1, rotate: 0 }}
-                      transition={{ delay: index * 0.2, type: "spring", stiffness: 200 }}
+                      transition={{
+                        delay: index * 0.2,
+                        type: "spring",
+                        stiffness: 200,
+                      }}
                       className="absolute left-1/2 -translate-x-1/2 z-20 w-14 h-14 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full border-4 border-white dark:border-slate-900 shadow-lg flex items-center justify-center"
                     >
                       <IconComponent className="w-6 h-6 text-white" />
@@ -217,7 +230,9 @@ export default function Experience() {
                     {/* Card */}
                     <motion.div
                       whileHover={{ scale: 1.02 }}
-                      className={`relative w-full lg:w-5/12 ${isEven ? "lg:mr-auto lg:pr-6" : "lg:ml-auto lg:pl-6"}`}
+                      className={`relative w-full lg:w-5/12 ${
+                        isEven ? "lg:mr-auto lg:pr-6" : "lg:ml-auto lg:pl-6"
+                      }`}
                     >
                       <div className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-lg rounded-2xl p-5 md:p-6 border border-slate-200/50 dark:border-slate-700/50 shadow-lg">
                         <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-2">
@@ -261,10 +276,6 @@ export default function Experience() {
               })}
             </div>
           </div>
-
-      
-           
-        
         </motion.div>
       </div>
     </section>

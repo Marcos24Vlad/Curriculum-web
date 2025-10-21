@@ -12,13 +12,52 @@ import VideoDJ from "../assets/Video Evidencia Evento DJ.mp4";
 import VideoPlataforma from "../assets/Video Evidencia Expocision de Plataforma Estudiantil.mp4";
 
 const achievements = [
-  { type: "image", title: "Claudstore Tienda", file: Claudstore, description: "Captura de la tienda Claudstore mostrando su diseño y funcionalidad." },
-  { type: "image", title: "Mejora Numérica de Afiliaciones", file: MejoraAfiliaciones, description: "Reporte de crecimiento significativo en afiliaciones." },
-  { type: "image", title: "Reconocimiento de Plataforma Becado", file: Becado, description: "Certificado por desarrollo de la plataforma de gestión estudiantil." },
-  { type: "image", title: "Mayoría de Afiliaciones en un Mes", file: AfiliacionesMes, description: "Premio por alcanzar la mayor cantidad de afiliaciones en un mes." },
-  { type: "image", title: "Reporte de Ventas Claudstore", file: ReporteVentas, description: "Análisis de ventas y desempeño en la tienda Claudstore." },
-  { type: "video", title: "Evidencia Evento DJ", file: VideoDJ, description: "Video mostrando mi participación como DJ en un evento en vivo." },
-  { type: "video", title: "Exposición Plataforma Estudiantil", file: VideoPlataforma, description: "Presentación oficial de la plataforma académica ante docentes y alumnos." },
+  {
+    type: "image",
+    title: "Claudstore Tienda",
+    file: Claudstore,
+    description:
+      "Captura de la tienda Claudstore mostrando su diseño y funcionalidad.",
+  },
+  {
+    type: "image",
+    title: "Mejora Numérica de Afiliaciones",
+    file: MejoraAfiliaciones,
+    description: "Reporte de crecimiento significativo en afiliaciones.",
+  },
+  {
+    type: "image",
+    title: "Reconocimiento de Plataforma Becado",
+    file: Becado,
+    description:
+      "Certificado por desarrollo de la plataforma de gestión estudiantil.",
+  },
+  {
+    type: "image",
+    title: "Mayoría de Afiliaciones en un Mes",
+    file: AfiliacionesMes,
+    description:
+      "Premio por alcanzar la mayor cantidad de afiliaciones en un mes.",
+  },
+  {
+    type: "image",
+    title: "Reporte de Ventas Claudstore",
+    file: ReporteVentas,
+    description: "Análisis de ventas y desempeño en la tienda Claudstore.",
+  },
+  {
+    type: "video",
+    title: "Evidencia Evento DJ",
+    file: VideoDJ,
+    description: "Video mostrando mi participación como DJ en un evento en vivo.",
+  },
+  {
+    type: "video",
+    title: "Exposición Plataforma Estudiantil",
+    file: VideoPlataforma,
+    description:
+      "Presentación oficial de la plataforma académica ante docentes y alumnos.",
+  },
 ];
 
 export default function AchievementsCarousel() {
@@ -31,20 +70,18 @@ export default function AchievementsCarousel() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.5 } // Se considera visible si el 50% está en pantalla
+      { threshold: 0.5 }
     );
 
     if (containerRef.current) observer.observe(containerRef.current);
-
     return () => {
       if (containerRef.current) observer.unobserve(containerRef.current);
     };
   }, []);
 
-  // ⏯️ Manejar autoplay solo si es visible
+  // ⏯️ Manejar autoplay
   useEffect(() => {
     if (!isVisible) {
-      // Pausar video si no es visible
       if (videoRef.current) videoRef.current.pause();
       return;
     }
@@ -62,27 +99,29 @@ export default function AchievementsCarousel() {
     return () => clearTimeout(timer);
   }, [current, isVisible]);
 
-  const nextSlide = () => setCurrent((prev) => (prev + 1) % achievements.length);
-  const prevSlide = () => setCurrent((prev) => (prev - 1 + achievements.length) % achievements.length);
+  const nextSlide = () =>
+    setCurrent((prev) => (prev + 1) % achievements.length);
+  const prevSlide = () =>
+    setCurrent((prev) => (prev - 1 + achievements.length) % achievements.length);
 
   return (
     <section
       ref={containerRef}
       id="achievements"
-      className="relative min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-white via-slate-50 to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 overflow-hidden px-6 py-16"
+      className="relative min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-white via-slate-50 to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 overflow-hidden px-4 sm:px-6 py-16"
     >
       {/* Header */}
-      <div className="text-center mb-10">
-        <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 bg-clip-text text-transparent">
+      <div className="text-center mb-12">
+        <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 bg-clip-text text-transparent drop-shadow-sm">
           Evidencias
         </h2>
-        <p className="text-slate-600 dark:text-slate-300 mt-3 text-base md:text-lg">
+        <p className="text-slate-600 dark:text-slate-300 mt-3 text-base md:text-lg max-w-2xl mx-auto">
           Reconocimientos, reportes y presentaciones de mi trayectoria.
         </p>
       </div>
 
       {/* Carrusel */}
-      <div className="relative w-full max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl border border-slate-200/50 dark:border-slate-700/50 bg-white/90 dark:bg-slate-800/90 backdrop-blur-lg">
+      <div className="relative w-full max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-xl border border-slate-200/40 dark:border-slate-700/40 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl">
         <AnimatePresence mode="wait">
           <motion.div
             key={current}
@@ -96,7 +135,7 @@ export default function AchievementsCarousel() {
               <img
                 src={achievements[current].file}
                 alt={achievements[current].title}
-                className="w-full h-[450px] object-cover"
+                className="w-full h-[300px] sm:h-[400px] md:h-[500px] object-contain bg-slate-100 dark:bg-slate-900"
               />
             ) : (
               <video
@@ -104,14 +143,18 @@ export default function AchievementsCarousel() {
                 src={achievements[current].file}
                 controls
                 onEnded={nextSlide}
-                className="w-full h-[450px] object-cover"
+                className="w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover"
               />
             )}
 
             {/* Overlay info */}
-            <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent text-white p-6">
-              <h3 className="text-xl font-semibold">{achievements[current].title}</h3>
-              <p className="text-sm mt-2">{achievements[current].description}</p>
+            <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent text-white px-6 py-4 sm:py-6">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-semibold drop-shadow">
+                {achievements[current].title}
+              </h3>
+              <p className="text-xs sm:text-sm md:text-base mt-1 sm:mt-2 max-w-2xl">
+                {achievements[current].description}
+              </p>
             </div>
           </motion.div>
         </AnimatePresence>
@@ -119,15 +162,15 @@ export default function AchievementsCarousel() {
         {/* Controles */}
         <button
           onClick={prevSlide}
-          className="absolute top-1/2 -translate-y-1/2 left-4 p-3 bg-blue-600/70 hover:bg-blue-700 rounded-full shadow-lg text-white"
+          className="absolute top-1/2 -translate-y-1/2 left-3 sm:left-4 p-2 sm:p-3 bg-blue-600/70 hover:bg-blue-700 backdrop-blur-md rounded-full shadow-lg text-white transition"
         >
-          <ChevronLeft size={24} />
+          <ChevronLeft size={22} />
         </button>
         <button
           onClick={nextSlide}
-          className="absolute top-1/2 -translate-y-1/2 right-4 p-3 bg-blue-600/70 hover:bg-blue-700 rounded-full shadow-lg text-white"
+          className="absolute top-1/2 -translate-y-1/2 right-3 sm:right-4 p-2 sm:p-3 bg-blue-600/70 hover:bg-blue-700 backdrop-blur-md rounded-full shadow-lg text-white transition"
         >
-          <ChevronRight size={24} />
+          <ChevronRight size={22} />
         </button>
       </div>
 
@@ -137,9 +180,9 @@ export default function AchievementsCarousel() {
           <button
             key={index}
             onClick={() => setCurrent(index)}
-            className={`w-3 h-3 rounded-full transition ${
+            className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all ${
               index === current
-                ? "bg-blue-600 scale-125"
+                ? "bg-blue-600 scale-125 shadow-md"
                 : "bg-slate-400 dark:bg-slate-600 hover:bg-blue-500"
             }`}
           />
